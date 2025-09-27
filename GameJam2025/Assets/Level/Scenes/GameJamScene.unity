@@ -392,6 +392,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b865cf43d510f849b3cd5efc3b3e036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Ability1Active: 0
+  Ability2Active: 0
+  Ability3Active: 0
 --- !u!114 &529028451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,7 +556,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.11003494, y: -13.5420885}
+  m_Offset: {x: -0.11003494, y: -21.176077}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -563,7 +566,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 33.571014, y: 6.2562237}
+  m_Size: {x: 33.571014, y: 7.1420555}
   m_EdgeRadius: 0
 --- !u!1 &653743161
 GameObject:
@@ -1979,7 +1982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownImage: {fileID: 1434912869}
-  cooldown: 10
+  cooldown: 3
+  abilitySlot: 1
 --- !u!1 &1964899842
 GameObject:
   m_ObjectHideFlags: 0
