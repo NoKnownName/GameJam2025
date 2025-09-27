@@ -114,7 +114,9 @@ public class InputManager : MonoBehaviour
         {
             target.transform.Rotate(eulerPerSecond * Time.deltaTime, Space.Self);
             t += Time.deltaTime;
+            ParallaxClouds.rotating = true;
             yield return null;
+            ParallaxClouds.rotating = false;
         }
     }
 

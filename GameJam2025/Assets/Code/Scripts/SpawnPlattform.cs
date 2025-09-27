@@ -25,7 +25,13 @@ public class SpawnPlattform : MonoBehaviour
 
         if (preloadArea) SpawnOneIfAreaEmpty(preloadArea);
 
-        if (spawnArea) SpawnOneIfAreaEmpty(spawnArea);
+        if (spawnArea)
+        {
+            if (spawnArea.isActiveAndEnabled)
+            {
+                SpawnOneIfAreaEmpty(spawnArea);
+            }
+        }
     }
 
     // --- Helpers ---
