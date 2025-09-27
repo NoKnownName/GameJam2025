@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -106,6 +107,18 @@ public class InputManager : MonoBehaviour
         }
     }
 
+    private IEnumerator RotateObject(GameObject target, float duration, Vector3 eulerPerSecond)
+    {
+        float t = 0f;
+        while (t < duration)
+        {
+            target.transform.Rotate(eulerPerSecond * Time.deltaTime, Space.Self);
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+
 
     private bool HandleArmedAbilityOnTarget(int slot, GameObject target)
     {
@@ -125,7 +138,8 @@ public class InputManager : MonoBehaviour
                 return true;
 
             case 3:
-                return false;
+                StartCoroutine(RotateObject(target, 2f, new Vector3(0f, 0f, 180f)));
+                return true;
         }
         return false;
     }
