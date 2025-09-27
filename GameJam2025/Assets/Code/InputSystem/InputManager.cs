@@ -127,10 +127,13 @@ public class InputManager : MonoBehaviour
         switch (slot)
         {
             case 1:
-                var vanish = target.GetComponentInParent<TempVanish>();
-                if (vanish == null) vanish = target.AddComponent<TempVanish>();
-                vanish.Vanish(3f);
-                AudioManager.instance.Play("Disappear");
+                if (target.tag != "Player")
+                {
+                    var vanish = target.GetComponentInParent<TempVanish>();
+                    if (vanish == null) vanish = target.AddComponent<TempVanish>();
+                    vanish.Vanish(3f);
+                    AudioManager.instance.Play("Disappear");
+                }
                 return true;             
 
 
