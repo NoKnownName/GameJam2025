@@ -129,7 +129,8 @@ public class InputManager : MonoBehaviour
             case 1:
                 var vanish = target.GetComponentInParent<TempVanish>();
                 if (vanish == null) vanish = target.AddComponent<TempVanish>();
-                vanish.Vanish(3f);       
+                vanish.Vanish(3f);
+                AudioManager.instance.Play("Disappear");
                 return true;             
 
 
@@ -137,10 +138,12 @@ public class InputManager : MonoBehaviour
                 var freeze = target.GetComponentInParent<PlatformFreeze>();
                 if (freeze == null) freeze = target.AddComponent<PlatformFreeze>();
                 freeze.Activate(ability2Duration);
+                AudioManager.instance.Play("Freeze");
                 return true;
 
             case 3:
-                StartCoroutine(RotateObject(target, 2f, new Vector3(0f, 0f, 180f)));
+                AudioManager.instance.Play("Spin"); 
+                if (target.tag == "Ground") StartCoroutine(RotateObject(target, 2f, new Vector3(0f, 0f, 180f)));
                 return true;
         }
         return false;

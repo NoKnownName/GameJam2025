@@ -6,6 +6,7 @@ TagManager:
   tags:
   - test
   - DeathZone
+  - Canvas
   layers:
   - Default
   - TransparentFX

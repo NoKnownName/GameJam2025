@@ -26,6 +26,7 @@ public class ParallaxClouds : MonoBehaviour
                 Destroy(cloudSprite.gameObject);
             }
         }
+
     }
     private IEnumerator RotateObject(Image target, float duration, Vector3 eulerPerSecond)
     {

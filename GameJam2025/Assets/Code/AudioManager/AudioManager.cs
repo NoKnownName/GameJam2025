@@ -1,12 +1,13 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour {
 
-	public static AudioManager instance;
+    public static AudioManager instance;
 
-	public Sound[] sounds;
+    public Sound[] sounds;
 
 	void Awake ()
 	{
@@ -41,6 +42,17 @@ public class AudioManager : MonoBehaviour {
 	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
 		s.source.Stop();
-	}
+    }
 
+    public IEnumerator PlaySound(string sound, float duration)
+    {
+		Sound s = Array.Find(sounds, item => item.name == sound);
+        float t = 0f;
+        Play(sound);
+        while (t < s.clip.length)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
 }

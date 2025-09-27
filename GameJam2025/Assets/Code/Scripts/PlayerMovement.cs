@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     //Collision check variables
     private RaycastHit2D groundHit;
     private RaycastHit2D headHit;
-    private bool isGrounded;
+    public static bool isGrounded;
     private bool bumpedHead;
 
     //Jump variables
@@ -26,7 +26,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isFalling;
     private float fastFallTime;
     private float fastFallReleaseSpeed;
-    private int numberOfJumpsUsed;
+    public static int numberOfJumpsUsed;
+
+    [SerializeField] public static GameObject gameOverPanel;
+    public GameObject gOP;
 
     //Apex variables
     private float apexPoint;
@@ -45,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
         isFacingRight = true;
 
         rb = GetComponent<Rigidbody2D>();
+        gameOverPanel = gOP;
     }
 
     private void Update()
@@ -119,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         //Press jump button
         if (InputManager.jumpWasPressed)
         {
+            AudioManager.instance.Play("Jump");
             jumpBufferTimer = moveStats.jumpBufferTime;
             jumpReleasedDuringBuffer = false;
         }

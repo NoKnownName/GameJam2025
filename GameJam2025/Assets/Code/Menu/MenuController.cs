@@ -3,21 +3,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameObject creditContainer;
+    public void OnClickStartButton(int sceneIndex)
     {
-        
+        SceneManager.LoadScene(sceneIndex);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnClickCreditButton()
     {
-        
-    }
-
-    public void OnClickStartButton()
-    {
-        SceneManager.LoadScene(1);
+        creditContainer.SetActive(!creditContainer.activeSelf);
     }
 
     public void OnClickQuitButton()
