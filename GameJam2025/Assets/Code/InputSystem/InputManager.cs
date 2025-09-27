@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
 
     private bool awaitingTarget;
     private int armedAbilitySlot = -1;
+    [SerializeField] private float ability2Duration = 3f;
 
     public bool Ability1Active = true;
     public bool Ability2Active = true;
@@ -76,47 +77,56 @@ public class InputManager : MonoBehaviour
     public void OnClick(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-
         if (!awaitingTarget) return;
 
         var ray = myCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        var hit2D = Physics2D.GetRayIntersection(ray);
+        var hit2D = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
 
         if (!hit2D.collider)
         {
-            awaitingTarget = false;
-            armedAbilitySlot = -1;
+            Debug.Log("[InputManager] No valid hit, still awaiting target…");
             return;
         }
 
-        bool executed = HandleArmedAbilityOnTarget(armedAbilitySlot, hit2D.collider.gameObject);
+        var targetGO = hit2D.rigidbody ? hit2D.rigidbody.gameObject
+                                       : hit2D.collider.transform.root.gameObject;
+
+        if (targetGO.name == "PLAYER" || targetGO.GetComponentInParent<PlayerMovement>() != null)
+        {
+            Debug.Log("[InputManager] Click on PLAYER ignored. Click a platform.");
+        }
+
+        bool executed = HandleArmedAbilityOnTarget(armedAbilitySlot, targetGO);
+        if (executed) OnAbilityExecuted?.Invoke(armedAbilitySlot);
 
         if (executed)
-            OnAbilityExecuted?.Invoke(armedAbilitySlot);
-
-        awaitingTarget = false;
-        armedAbilitySlot = -1;
+        {
+            awaitingTarget = false;
+            armedAbilitySlot = -1;
+        }
     }
+
 
     private bool HandleArmedAbilityOnTarget(int slot, GameObject target)
     {
         switch (slot)
         {
             case 1:
-                clickedObject = target;
-                cooldown = 3f;
-                return true;
+                var vanish = target.GetComponentInParent<TempVanish>();
+                if (vanish == null) vanish = target.AddComponent<TempVanish>();
+                vanish.Vanish(3f);       
+                return true;             
+
 
             case 2:
-                // TODO: Ability 2 Logik auf 'target'
-                return false;
+                var freeze = target.GetComponentInParent<PlatformFreeze>();
+                if (freeze == null) freeze = target.AddComponent<PlatformFreeze>();
+                freeze.Activate(ability2Duration);
+                return true;
 
             case 3:
-                // TODO: Ability 3 Logik auf 'target'
-                return false;
-
-            default:
                 return false;
         }
+        return false;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class BackgroundMusicManager : MonoBehaviour
 {
     public AudioClip backgroundMusic;
-    public KeyCode muteKey = KeyCode.Space;
     public AudioSource musicSource;
     public bool isPlaying = true;
 
@@ -20,11 +19,11 @@ public class BackgroundMusicManager : MonoBehaviour
 
     void Update()
     {
-        if (musicSource.isPlaying == false && Input.GetKeyDown(muteKey))
+        if (musicSource.isPlaying == false)
         {
             musicSource.Play();
         }
-        else if(musicSource.isPlaying == true && Input.GetKeyDown(muteKey))
+        else if(musicSource.isPlaying == true)
         {
             musicSource.Pause();
         }

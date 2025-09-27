@@ -3,14 +3,13 @@ using UnityEngine;
 public class SpawnPlattform : MonoBehaviour
 {
     [Header("Areas (je ein BoxCollider2D)")]
-    [SerializeField] private BoxCollider2D spawnArea;    // Bereich, in dem sichtbar gespawnt wird (vor dem Spieler)
-    [SerializeField] private BoxCollider2D preloadArea;  // Bereich darüber/voraus, damit Plattformen schon existieren
-    [SerializeField] private BoxCollider2D cullArea;     // Bereich unter dem Spieler: alles darin löschen
+    [SerializeField] private BoxCollider2D spawnArea;
+    [SerializeField] private BoxCollider2D preloadArea;
+    [SerializeField] private BoxCollider2D cullArea;
 
     [Header("Plattform & Layer")]
     [SerializeField] private GameObject spawnablePlatform;
-    [SerializeField] private LayerMask platformLayer;    // Layer deiner Plattform(en)
-
+    [SerializeField] private LayerMask platformLayer;
     [Header("Taktung (optional)")]
     [SerializeField] private float checkEverySeconds = 0.2f;
     private float _nextCheck;
@@ -22,13 +21,10 @@ public class SpawnPlattform : MonoBehaviour
 
         if (!spawnablePlatform) return;
 
-        // 1) CULL: unten alles weg, was als Plattform gilt
         if (cullArea) CullPlatformsInArea(cullArea);
 
-        // 2) PRELOAD: falls im Preloadbereich keine Plattform ist -> EINE spawnen
         if (preloadArea) SpawnOneIfAreaEmpty(preloadArea);
 
-        // 3) SPAWN: falls im Sichtbereich (Spawn-Area) keine Plattform ist -> EINE spawnen
         if (spawnArea) SpawnOneIfAreaEmpty(spawnArea);
     }
 

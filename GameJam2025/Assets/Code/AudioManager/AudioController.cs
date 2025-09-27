@@ -13,7 +13,6 @@ public class AudioController : MonoBehaviour
     void Start()
     {
         audiosource = gameObject.AddComponent<AudioSource>();
-        //audiosource.playOnAwake = false;
         audiosource.clip = audioclip;
     }
 
